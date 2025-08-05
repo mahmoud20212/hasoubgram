@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('username');
             $table->string('image');
             $table->string('email')->unique();
+            $table->text('bio')->nullable();
+            $table->boolean('private_account')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
