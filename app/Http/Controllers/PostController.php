@@ -96,7 +96,7 @@ class PostController extends Controller
 
     public function explore()
     {
-        $posts = Post::whereRelation('owner', 'private_account', '=', 0)->whereNot('user_id', Auth::id())->get();
+        $posts = Post::whereRelation('owner', 'private_account', '=', 0)->whereNot('user_id', Auth::id())->simplePaginate(12);
         return view('posts.explore', compact('posts'));
     }
 }

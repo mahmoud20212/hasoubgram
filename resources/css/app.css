@@ -20,6 +20,18 @@
 }
 
 @layer utilities {
+    .explore-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.25rem;
+    }
+
+    @media (min-width: 768px) {
+        .explore-grid {
+            gap: 1.25rem;
+        }
+    }
+
     input[type="file"]::file-selector-button {
         @apply inline-flex items-center pr-5 pl-10 py-2 bg-gray-800 border border-transparent font-semibold text-xs text-white uppercase
         tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300

@@ -19,17 +19,20 @@
             </div>
 
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <div class="hidden md:flex md:flex-row space-x-3 items-center justify-center">
                 @auth
-                    <a href="{{ route('posts.index') }}" class="text-[1.6rem] rtl:ml-3"></a>
+                    <a href="{{ route('posts.index') }}" class="text-[1.6rem] rtl:ml-3">
                     {!! url()->current() == route('posts.index') ? 
                         '<i class="bx bxs-home-alt-2"></i>': 
                         '<i class="bx bx-home-alt-2"></i>' !!}
+                    </a>
                     
-                    <a href="{{ route('explore') }}" class="text-[1.6rem] rtl:ml-3"></a>
+                    <a href="{{ route('explore') }}" class="text-[1.6rem] rtl:ml-3">
                     {!! url()->current() == route('explore') ? 
                         '<i class="bx bxs-compass"></i>': 
                         '<i class="bx bx-compass"></i>' !!}
+                    </a>
+
                 @endauth
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
