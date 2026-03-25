@@ -13,12 +13,12 @@
         <div class="hidden w-[30rem] lg:flex lg:flex-col pt-4">
             <div class="flex flex-row text-sm gap-2">
                 <div class="mr-5">
-                    <a href="#">
+                    <a href="{{ route('user.profile', Auth::user()->username) }}">
                         <img src="{{ Auth::user()->image }}" alt="{{ Auth::user()->username }}" class="border border-gray-300 rounded-full w-12 h-12">
                     </a>
                 </div>
                 <div class="flex flex-col">
-                    <a href="#" class="font-bold">{{ Auth::user()->username }}</a>
+                    <a href="{{ route('user.profile', Auth::user()->username) }}" class="font-bold">{{ Auth::user()->username }}</a>
                     <div class="text-gray-500 text-sm">
                         {{ Auth::user()->name }}
                     </div>
@@ -32,12 +32,12 @@
                     @foreach ($suggested_users as $user)
                         <li class="flex flex-row my-5 text-sm justify-center gap-2">
                             <div class="mr-5">
-                                <a href="#">
+                                <a href="{{ route('user.profile', $user->username) }}">
                                     <img src="{{ $user->image }}" alt="{{ $user->username }}" class="border border-gray-300 rounded-full w-9 h-9">
                                 </a>
                             </div>
                             <div class="flex flex-col grow">
-                                <a href="#" class="font-bold text-black">
+                                <a href="{{ route('user.profile', $user->username) }}" class="font-bold text-black">
                                     {{ $user->username }}
                                 </a>
                                 <div class="text-gray-500 text-sm">

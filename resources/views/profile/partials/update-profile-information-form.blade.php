@@ -13,14 +13,36 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
+
+        <div class="flex items-center gap-4">
+            <img src="{{ $user->image }}" class="w-24 h-24 rounded-full object-cover">
+        </div>
+
+        <div>
+            <x-input-label for="image" :value="__('Profile Image')" />
+            <input id="image" name="image" type="file" class="mt-1 block w-full" />
+            <x-input-error class="mt-2" :messages="$errors->get('image')" />
+        </div>
 
         <div>
             <x-input-label for="name" :value="__('Name')" />
             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
+        </div>
+        
+        <div>
+            <x-input-label for="username" :value="__('Username')" />
+            <x-text-input id="username" name="username" type="text" class="mt-1 block w-full" :value="old('username', $user->username)" required autocomplete="username" />
+            <x-input-error class="mt-2" :messages="$errors->get('username')" />
+        </div>
+        
+        <div>
+            <x-input-label for="bio" :value="__('Bio')" />
+            <textarea name="bio" id="bio" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-200 focus:ring-opacity-50">{{ old('bio', $user->bio) }}</textarea>
+            <x-input-error class="mt-2" :messages="$errors->get('bio')" />
         </div>
 
         <div>
@@ -46,6 +68,12 @@
                 </div>
             @endif
         </div>
+
+        <label class="inline-flex items-center cursor-pointer">
+            <input type="checkbox" name="private_account" id="private_account" class="sr-only peer" @checked(old('private_account', data_get($user, 'private_account', false)))>
+            <div class="relative h-5 w-9 rounded-full border border-gray-300 bg-gray-200 transition-colors after:absolute after:start-[1.3px] after:top-[1.3px] after:h-4 after:w-4 after:rounded-full after:bg-white after:shadow-sm after:transition-transform after:content-[''] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-200 peer-checked:border-indigo-600 peer-checked:bg-indigo-600 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full"></div>
+            <span class="ms-3 select-none text-sm font-medium text-gray-900">{{ __('Private Account') }}</span>
+        </label>
 
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>

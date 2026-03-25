@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -24,6 +25,8 @@ class User extends Authenticatable
         'password',
         'username',
         'image',
+        'bio',
+        'private_account',
     ];
 
     /**
@@ -77,5 +80,10 @@ class User extends Authenticatable
     public function suggested_users()
     {
         return User::whereNot('id', Auth::id())->get()->shuffle()->take(5);
+    }
+
+    public function getImageAttribute($value)
+    {
+        return Str::startsWith($value, 'https') ? $value : asset('storage/' . $value);
     }
 }
