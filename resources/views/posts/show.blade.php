@@ -8,7 +8,7 @@
                 <div class="flex items-center p-5 gap-3">
                     <img src="{{ $post->owner->image }}" alt="{{ $post->owner->username }}" class="rounded-full w-10 h-10">
                     <div class="grow">
-                        <a href="#" class="font-bold">{{ $post->owner->username }}</a>
+                        <a href="{{ route('user.profile', $post->owner->username) }}" class="font-bold">{{ $post->owner->username }}</a>
                     </div>
                     @if ($post->owner->id === auth()->id())
                         <a href="{{ route('posts.edit', $post->slug) }}">
@@ -30,7 +30,7 @@
                     <img src="{{ $post->owner->image }}" alt="{{ $post->owner->username }}" class="ltr:mr-5 rtl:ml-5 rounded-full w-10 h-10">
                     <div class="flex flex-col">
                         <div>
-                            <a href="#" class="font-bold">{{ $post->owner->username }}</a>
+                            <a href="{{ route('user.profile', $post->owner->username) }}" class="font-bold">{{ $post->owner->username }}</a>
                             <span class="inline">{{ $post->description }}</span>
                         </div>
                         <div class="mt-1 text-sm text-gray-400">
@@ -43,7 +43,7 @@
                     <div class="flex items-start px-5 py-2 gap-2">
                         <img src="{{ $comment->owner->image }}" alt="{{ $comment->owner->username }}" class="h-10 w-10 rounded-full ltr:mr-5 rtl:ml-5">
                         <div class="flex flex-col">
-                            <a href="#" class="font-bold mr-2 inline-block">{{ $comment->owner->username }}</a>
+                            <a href="{{ route('user.profile', $comment->owner->username) }}" class="font-bold mr-2 inline-block">{{ $comment->owner->username }}</a>
                             <span class="inline">{{ $comment->body }}</span>
                         </div>
                         <div class="mt-1 text-sm text-gray-400">
@@ -52,7 +52,18 @@
                     </div>
                 @endforeach
             </div>
-            
+            <div class="border-t p-3 flex flex-row">
+                <a href="/posts/{{ $post->slug }}/like">
+                    @if ($post->liked(Auth::user()))
+                        <i class="bx bxs-heart text-3xl text-red-600 hover:text-gray-400 cursor-pointer mr-3"></i>
+                    @else
+                        <i class="bx bx-heart text-3xl hover:text-gray-400 cursor-pointer mr-3"></i>
+                    @endif
+                </a>
+                <a onclick="document.getElementById('comment_body').focus();">
+                    <i class="bx bx-comment text-3xl hover:text-gray-400 cursor-pointer mr-3"></i>
+                </a>
+            </div>
             <div class="border-t p-5">
                 <form action="/posts/{{ $post->slug }}/comment" method="POST">
                     @csrf

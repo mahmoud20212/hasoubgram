@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -29,6 +30,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::post('/posts/{post:slug}/comment', [CommentController::class, 'store']);
+    Route::get('/posts/{post:slug}/like', LikeController::class)->name('posts.like');
 });
 
 require __DIR__.'/auth.php';
