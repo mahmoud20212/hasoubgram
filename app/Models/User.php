@@ -82,6 +82,23 @@ class User extends Authenticatable
         return User::whereNot('id', Auth::id())->get()->shuffle()->take(5);
     }
 
+    public function follow(User $user)
+    {
+        if ($this->id === $user->id) {
+            return;
+        }
+        if ($user->private_account) {
+            $this->following()->attach($user, ['confirmed' => false]);
+        } else {
+            $this->following()->attach($user, ['confirmed' => true]);
+        }
+    }
+
+    public function unfollow(User $user)
+    {
+        $this->following()->detach($user->id);
+    }
+
     public function getImageAttribute($value)
     {
         return Str::startsWith($value, 'https') ? $value : asset('storage/' . $value);
