@@ -21,6 +21,18 @@
                                 <i class="bx bx-message-square-x inline ml-2"></i>
                             </button>
                         </form>
+                    @elseif (auth()->user()->isFollowing($post->owner))
+                        <a href="{{ route('unfollow', $post->owner->username) }}" class="w-30 cursor-pointer text-sm font-bold py-1 px-3 text-center rounded text-red-500">
+                            {{ __('Unfollow') }}
+                        </a>
+                    @elseif (auth()->user()->isPending($post->owner))
+                        <span class="w-30 cursor-pointer text-sm font-bold py-1 px-3 text-center rounded bg-gray-400 text-white">
+                            {{ __('Pending') }}
+                        </span>
+                    @else
+                        <a href="{{ route('follow', $post->owner->username) }}" class="w-30 cursor-pointer text-sm font-bold py-1 px-3 text-center rounded text-blue-500">
+                            {{ __('Follow') }}
+                        </a>
                     @endif
                 </div>
             </div>

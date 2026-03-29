@@ -14,12 +14,22 @@
                         {{ __('Edit Profile') }}
                     </a>
                 </div>
-            @else
+            @elseif (Auth::user()->isFollowing($user))
                 <div>
-                    <a href="" class="w-30 bg-blue-400 text-white px-3 py-1 rounded text-center mt-3">
-                        {{ __('Follow') }}
+                    <a href="{{ route('unfollow', $user->username) }}" class="w-30 bg-red-400 text-white font-blod px-3 py-1 rounded text-center self-start">
+                        {{ __('Unfollow') }}
                     </a>
                 </div>
+            @elseif (Auth::user()->isPending($user))
+                <div>
+                    <span class="w-30 bg-gray-400 text-white px-3 py-1 rounded text-center self-start">
+                        {{ __('Pending') }}
+                    </span>
+                </div>
+            @else
+                <a href="{{ route('follow', $user->username) }}" class="w-30 bg-blue-400 text-white font-blod px-3 py-1 rounded text-center self-start">
+                    {{ __('Follow') }}
+                </a>
             @endif
             @guest
                 <div>
@@ -46,18 +56,18 @@
                 </li>
                 <li class="flex flex-col md:flex-row text-center gap-2">
                     <div class="ltr:md:mr-1 rtl:md:ml-1 font-bold md:font-normal">
-                        4
+                        {{ $user->follower()->wherePivot('confirmed', true)->get()->count() }}
                     </div>
                     <a href="" class="text-neutral-500 md:text-black">
-                        {{ __('Followers') }}
+                        {{ $user->follower()->count() > 1 ? __('Followers') : __('Follower') }}
                     </a>
                 </li>
                 <li class="flex flex-col md:flex-row text-center gap-2">
                     <div class="ltr:md:mr-1 rtl:md:ml-1 font-bold md:font-normal">
-                        5
+                        {{ $user->following()->wherePivot('confirmed', true)->get()->count() }}
                     </div>
                     <a href="" class="text-neutral-500 md:text-black">
-                        {{ __('Following') }}
+                        {{ $user->following()->count() > 1 ? __('Following') : __('Followings') }}
                     </a>
                 </li>
             </ul>

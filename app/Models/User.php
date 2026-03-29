@@ -79,7 +79,12 @@ class User extends Authenticatable
 
     public function suggested_users()
     {
-        return User::whereNot('id', Auth::id())->get()->shuffle()->take(5);
+        $user = Auth::user();
+        return User::where('id', '!=', $user->id)
+        ->whereNotIn('id', $user->following()->pluck('users.id'))
+        ->inRandomOrder()
+        ->limit(5)
+        ->get();
     }
 
     public function follow(User $user)
@@ -97,6 +102,16 @@ class User extends Authenticatable
     public function unfollow(User $user)
     {
         $this->following()->detach($user->id);
+    }
+
+    public function isPending(User $user)
+    {
+        return $this->following()->where('following_user_id', $user->id)->where('confirmed', false)->exists();
+    }
+
+    public function isFollowing(User $user)
+    {
+        return $this->following()->where('following_user_id', $user->id)->where('confirmed', true)->exists();
     }
 
     public function getImageAttribute($value)

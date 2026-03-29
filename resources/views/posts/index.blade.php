@@ -11,6 +11,9 @@
         </div>
 
         <div class="hidden w-[30rem] lg:flex lg:flex-col pt-4">
+            <div class="{{ session('status') ? '' : 'hidden' }} w-50 p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg absolute right-10 shadow shadow-neutral-200">
+                <span class="font-medium">{{ session('status') }}</span>
+            </div>
             <div class="flex flex-row text-sm gap-2">
                 <div class="mr-5">
                     <a href="{{ route('user.profile', Auth::user()->username) }}">
@@ -44,6 +47,9 @@
                                     {{ $user->name }}
                                 </div>
                             </div>
+                            <a href="{{ route('follow', $user->username) }}" class="text-blue-500 font-bold">
+                                {{ __('Follow') }}
+                            </a>
                         </li>
                     @endforeach
                 </ul>
