@@ -11,13 +11,7 @@
                 class="h-auto w-full object-cover">
         </div>
         <div class="p-3 flex flex-row">
-            <a href="/posts/{{ $post->slug }}/like">
-                @if ($post->liked(Auth::user()))
-                    <i class="bx bxs-heart text-3xl text-red-600 hover:text-gray-400 cursor-pointer mr-3"></i>
-                @else
-                    <i class="bx bx-heart text-3xl hover:text-gray-400 cursor-pointer mr-3"></i>
-                @endif
-            </a>
+            @livewire('like', ['post' => $post])
             <a href="{{ route('posts.show', $post->slug) }}">
                 <i class="bx bx-comment text-3xl hover:text-gray-400 cursor-pointer mr-3"></i>
             </a>

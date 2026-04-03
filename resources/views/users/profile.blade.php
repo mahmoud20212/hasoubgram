@@ -7,6 +7,7 @@
         </div>
         <div class="px-4 col-span-2 md:ml-0 flex flex-col order-2 md:col-span-3">
             <div class="text-3xl mb-2">{{ $user->username }}</div>
+            @auth
             @if ($user->id === Auth::id())
                 <div class="flex space-x-3 items-center">
                     <a href="/profile"
@@ -14,26 +15,13 @@
                         {{ __('Edit Profile') }}
                     </a>
                 </div>
-            @elseif (Auth::user()->isFollowing($user))
-                <div>
-                    <a href="{{ route('unfollow', $user->username) }}" class="w-30 bg-red-400 text-white font-blod px-3 py-1 rounded text-center self-start">
-                        {{ __('Unfollow') }}
-                    </a>
-                </div>
-            @elseif (Auth::user()->isPending($user))
-                <div>
-                    <span class="w-30 bg-gray-400 text-white px-3 py-1 rounded text-center self-start">
-                        {{ __('Pending') }}
-                    </span>
-                </div>
             @else
-                <a href="{{ route('follow', $user->username) }}" class="w-30 bg-blue-400 text-white font-blod px-3 py-1 rounded text-center self-start">
-                    {{ __('Follow') }}
-                </a>
+                @livewire('followbutton', ['userFriend' => $user, 'showBackground' => true, 'classes' => 'text-white'])
             @endif
+            @endauth
             @guest
                 <div>
-                    <a href="{{ route('login') }}" class="w-30 bg-blue-400 text-white px-3 py-1 rounded text-center mt-2">
+                    <a href="{{ route('login') }}" class="w-30 bg-blue-400 text-white font-blod px-3 py-1 rounded text-center self-start">
                         {{ __('Follow') }}
                     </a>
                 </div>

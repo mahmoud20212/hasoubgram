@@ -69,6 +69,7 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $this->authorize('update', $post);
         $data = $request->validate([
             'description' => 'required',
             'image' => 'nullable|mimes:jpg,jpeg,png,gif',
@@ -88,11 +89,12 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $this->authorize('delete', $post);
         if($post->image){
             Storage::disk('public')->delete($post->image);
         }
         $post->delete();
-        return redirect()->route('posts.index');
+        return redirect()->route('user.profile', Auth::user()->username)->with('success', 'Post deleted successfully');
     }
 
     public function explore()
