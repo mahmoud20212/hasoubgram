@@ -47,7 +47,7 @@
             </ul>
         </div>
     </div>
-    @if ($user->posts->count() > 0 && (!$user->private_account || auth()->id() === $user->id))
+    @if ($user->posts->count() > 0 && (!$user->private_account || auth()->id() === $user->id || $user->followers()->where('users.id', auth()->id())->where('confirmed', true)->exists()))
         <div class="grid grid-cols-3 gap-4 my-5">
             @foreach ($user->posts as $post)
                 <a href="/posts/{{ $post->slug }}" class="aspect-square block w-full">

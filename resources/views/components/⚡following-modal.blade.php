@@ -17,14 +17,14 @@
                         {{ $following->name }}
                     </div>
                 </div>
+                @auth
+                    @if (Auth::id() === $this->user->id)
+                        <a wire:click="unfollow({{ $following->id }})" class="w-30 text-center text-white bg-red-500 px-3 py-1 mt-2 cursor-pointer rounded">
+                            {{ __('Unfollow') }}
+                        </a>
+                    @endif
+                @endauth
             </li>
-            @auth
-                @if (Auth::id() === $this->user->id)
-                    <a wire:click="unfollow({{ $following->id }})" class="w-30 text-center text-white bg-red-500 px-3 py-1 mt-2 cursor-pointer rounded">
-                        {{ __('Unfollow') }}
-                    </a>
-                @endif
-            @endauth
         @empty
             <li class="w-full p-3 text-center">
                 {{ __('you are not following anyone') }}

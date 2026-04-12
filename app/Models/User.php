@@ -114,6 +114,22 @@ class User extends Authenticatable
         return $this->following()->where('following_user_id', $user->id)->where('confirmed', true)->exists();
     }
 
+    public function pendingFollowers()
+    {
+        return $this->follower()->wherePivot('confirmed', false)->get();
+    }
+
+    public function confirm(User $user)
+    {
+        $this->follower()->updateExistingPivot($user->id, ['confirmed' => true]);
+        // تحديث عمود confirmed في جدول العلاقة follows، ففي لارافل لا يمكن تحديث عمود في الـ pivot بعامل update() على علاقة belongsToMany، بل يجب استخدام updateExistingPivot().
+    }
+
+    public function deleteFollowingRequest(User $user)
+    {
+        $this->follower()->detach($user->id);
+    }
+
     public function getImageAttribute($value)
     {
         return Str::startsWith($value, 'https') ? $value : asset('storage/' . $value);

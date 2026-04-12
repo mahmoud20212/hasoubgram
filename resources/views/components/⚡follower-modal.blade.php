@@ -1,6 +1,6 @@
 <div class="max-h-96 flex flex-col">
     <div class="flex w-full items-center border-b-2 border-b-neutral-100 p-2">
-        <h1 class="text-lg font-bold text-center pb-2 grow">{{ __('Followers') }}</h1>
+        <h1 class="text-lg font-bold text-center pb-2 grow">{{ __('Follower') }}</h1>
         <button wire:click="$dispatch('closeModal')">×</button>
     </div>
     <ul class="overflow-y-auto">
@@ -27,7 +27,7 @@
             @endauth
         @empty
             <li class="w-full p-3 text-center">
-                {{ __('you have no followers') }}
+                {{ __('you have no follower') }}
             </li>
         @endforelse
     </ul>

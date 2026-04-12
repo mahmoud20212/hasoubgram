@@ -23,6 +23,7 @@ new class extends Component {
             $user->unfollow($this->userFriend);
         } elseif (!$this->isPending) {
             $user->follow($this->userFriend);
+            $this->dispatch('toggleFollow');
         }
         $this->updateFollowStatus();
     }

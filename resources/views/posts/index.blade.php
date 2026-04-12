@@ -1,14 +1,6 @@
 <x-app-layout>
     <div class="flex flex-row max-w-3xl gap-8 mx-auto">
-        <div class="w-[70rem] mx-auto lg:w-[95]rem">
-            @forelse ($posts as $post)
-                <x-post :post="$post" />
-            @empty
-                <div class="max-w-2xl mx-auto">
-                    {{ __('Start following your friends and enjoy') }}
-                </div>
-            @endforelse
-        </div>
+        <livewire:posts-list />
 
         <div class="hidden w-[30rem] lg:flex lg:flex-col pt-4">
             <div class="{{ session('status') ? '' : 'hidden' }} w-50 p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg absolute right-10 shadow shadow-neutral-200">
@@ -33,7 +25,7 @@
                 </h3>
                 <ul>
                     @foreach ($suggested_users as $user)
-                        <li class="flex flex-row my-5 text-sm justify-center gap-2">
+                        <li class="flex items-center justify-between my-5 text-sm">
                             <div class="mr-5">
                                 <a href="{{ route('user.profile', $user->username) }}">
                                     <img src="{{ $user->image }}" alt="{{ $user->username }}" class="border border-gray-300 rounded-full w-9 h-9">
