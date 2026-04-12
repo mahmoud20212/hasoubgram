@@ -42,22 +42,8 @@
                         {{ $user->posts->count() > 1 ? __('Posts') : __('Post') }}
                     </span>
                 </li>
-                <li class="flex flex-col md:flex-row text-center gap-2">
-                    <div class="ltr:md:mr-1 rtl:md:ml-1 font-bold md:font-normal">
-                        {{ $user->follower()->wherePivot('confirmed', true)->get()->count() }}
-                    </div>
-                    <a href="" class="text-neutral-500 md:text-black">
-                        {{ $user->follower()->count() > 1 ? __('Followers') : __('Follower') }}
-                    </a>
-                </li>
-                <li class="flex flex-col md:flex-row text-center gap-2">
-                    <div class="ltr:md:mr-1 rtl:md:ml-1 font-bold md:font-normal">
-                        {{ $user->following()->wherePivot('confirmed', true)->get()->count() }}
-                    </div>
-                    <a href="" class="text-neutral-500 md:text-black">
-                        {{ $user->following()->count() > 1 ? __('Following') : __('Followings') }}
-                    </a>
-                </li>
+                @livewire('follower', ['userId' => $user->id])
+                @livewire('following', ['userId' => $user->id])
             </ul>
         </div>
     </div>
