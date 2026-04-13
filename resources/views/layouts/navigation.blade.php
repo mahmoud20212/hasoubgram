@@ -67,6 +67,22 @@
                             </x-slot>
                         </x-dropdown>
                     </div>
+                    
+                    <div class="hidden md:block">
+                        <x-dropdown align="right" width="96">
+                            <x-slot name="trigger">
+                                <button class="text-[1.6rem] ltr:mr-2 rtl:ml-2 leading-5">
+                                    <div class="relative">
+                                        <i class="bx bxs-bell"></i>
+                                        <livewire:notification-count />
+                                    </div>
+                                </button>
+                            </x-slot>
+                            <x-slot name="content">
+                                <livewire:notification-dropdown />
+                            </x-slot>
+                        </x-dropdown>
+                    </div>
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">

@@ -17,14 +17,14 @@
                         {{ $follower->name }}
                     </div>
                 </div>
+                @auth
+                    @if (Auth::id() === $this->user->id)
+                        <button wire:click="removeFollower({{ $follower->id }})" class="border border-gray-500 px-2 py-1 rounded">
+                            {{ __('Remove') }}
+                        </button>
+                    @endif
+                @endauth
             </li>
-            @auth
-                @if (Auth::id() === $this->user->id)
-                    <button wire:click="removeFollower({{ $follower->id }})" class="border border-gray-500 px-2 py-1 rounded">
-                        {{ __('Remove') }}
-                    </button>
-                @endif
-            @endauth
         @empty
             <li class="w-full p-3 text-center">
                 {{ __('you have no follower') }}

@@ -1,13 +1,18 @@
 <?php
 
 use Livewire\Component;
+use App\Notifications\PostLiked;
 
 new class extends Component {
     public $post;
 
     public function toggleLike()
     {
-        auth()->user()->likes()->toggle($this->post);
+        $result = auth()->user()->likes()->toggle($this->post);
+        // if the post is liked and the post owner is not the current user, send a notification
+        if(!empty($result['attached']) && $this->post->owner->id !== auth()->id()) {
+            $this->post->owner->notify(new PostLiked($this->post, auth()->user()));
+        }
         $this->dispatch('likeToggled');
     }
 };
