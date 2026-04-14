@@ -38,7 +38,7 @@ new class extends Component
             <ul class="divide-y divide-gray-100">
                 @forelse ($this->notifications as $notify)
                     <li class="p-3 hover:bg-gray-50" wire:key="notification-{{ $notify->id }}">
-                        <a wire:click="markAsReadAndRedirect('{{ $notify->id }}', '{{ $notify->data['post_link'] }}')" class="flex items-start">
+                        <a wire:click="markAsReadAndRedirect('{{ $notify->id }}', '{{ $notify->data['post_link'] }}')" class="flex items-start cursor-pointer">
                             <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center">
                                 <img src="{{ $notify->data['user_image'] }}" class="h-10 w-10 rounded-full object-cover" alt="">
                             </div>

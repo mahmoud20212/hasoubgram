@@ -60,7 +60,7 @@
                                 <ul class="invisible group-hover:visible flex flex-row">
                                     <li class="flex items-center text-2xl text-white font-bold mr-2">
                                         <i class="bx bxs-heart mr-1"></i>
-                                        <span>5</span>
+                                        <span>{{ $post->likes->count() }}</span>
                                     </li>
                                     <li class="flex items-center text-2xl text-white font-bold mr-2">
                                         <i class="bx bxs-comment mr-1"></i>

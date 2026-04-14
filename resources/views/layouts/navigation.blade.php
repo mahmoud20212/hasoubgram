@@ -46,11 +46,15 @@
                         '<i class="bx bx-compass"></i>' !!}
                     </a>
                     
-                    <a href="{{ route('posts.create') }}" class="text-[1.6rem] rtl:ml-3">
+                    {{-- <a href="{{ route('posts.create') }}" class="text-[1.6rem] rtl:ml-3">
                     {!! url()->current() == route('posts.create') ? 
                         '<i class="bx bxs-message-square-add text-[1.6rem]"></i>': 
                         '<i class="bx bx-message-square-add text-[1.6rem]"></i>' !!}
-                    </a>
+                    </a> --}}
+
+                    <button onclick="Livewire.dispatch('openModal', {component: 'create-post-modal'})">
+                        <i class="bx bx-message-square-add text-[1.6rem]"></i>
+                    </button>
 
                     <div class="hidden md:block">
                         <x-dropdown align="right" width="96">
