@@ -1,12 +1,25 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
+
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
+
+
+Route::get('/greeting/{locale}', function (string $locale) {
+    if (!in_array($locale, ['ar', 'en'])) {
+        abort(400, 'Invalid Language');
+    }
+    Session::put('locale', $locale);
+    App::setLocale($locale);
+    return redirect()->back();
+})->name('changeLang');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

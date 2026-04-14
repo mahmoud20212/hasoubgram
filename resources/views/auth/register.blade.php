@@ -46,6 +46,15 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
+        <div class="mt-4">
+            <x-input-label for="lang" :value="__('Language')" />
+            <select id="lang" name="lang" class="mt-1 block w-full rounded-md border-gray-300 py-2 ltr:px-3 rtl:px-8 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                <option value="en" @selected(old('lang') === 'en')>English</option>
+                <option value="ar" @selected(old('lang') === 'ar')>العربية</option>
+            </select>
+            <x-input-error :messages="$errors->get('lang')" class="mt-2" />
+        </div>
+
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                 {{ __('Already registered?') }}
@@ -56,4 +65,15 @@
             </x-primary-button>
         </div>
     </form>
+    <div class="flex justify-end p-4">
+        <ul class="flex space-x-4">
+            <li>
+                    <a href="{{ route('changeLang','en') }}" class="text-gray-600 hover:text-gray-900 {{ app()->getLocale() == 'en' ? 'font-bold' : '' }}">English</a>
+            </li>
+
+                <li>
+                    <a href="{{ route('changeLang','ar') }}" class="text-gray-600 hover:text-gray-900 {{ app()->getLocale() == 'ar' ? 'font-bold' : '' }}">العربية</a>
+            </li>
+        </ul>
+    </div>
 </x-guest-layout>

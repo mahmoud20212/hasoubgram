@@ -27,6 +27,7 @@ class User extends Authenticatable
         'image',
         'bio',
         'private_account',
+        'lang',
     ];
 
     /**

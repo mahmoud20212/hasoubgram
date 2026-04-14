@@ -25,7 +25,7 @@
                 </h3>
                 <ul>
                     @foreach ($suggested_users as $user)
-                        <li class="flex items-center justify-between my-5 text-sm">
+                        <li class="flex items-center justify-between my-5 text-sm gap-2">
                             <div class="mr-5">
                                 <a href="{{ route('user.profile', $user->username) }}">
                                     <img src="{{ $user->image }}" alt="{{ $user->username }}" class="border border-gray-300 rounded-full w-9 h-9">

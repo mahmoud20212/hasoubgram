@@ -34,7 +34,7 @@
         <div
             class="col-span-4 my-5 py-2 border-y border-y-neutral-200 order-4 md:order-3 md:border-none md:px-4 md:col-start-2">
             <ul class="text-md flex flex-row justify-between md:justify-start md:gap-8 md:text-xl">
-                <li class="flex flex-col md:flex-row text-center">
+                <li class="flex flex-col md:flex-row text-center gap-3">
                     <div class="md:mr-2 font-bold md:font-normal">
                         {{ $user->posts->count() }}
                     </div>
@@ -47,7 +47,7 @@
             </ul>
         </div>
     </div>
-    @if ($user->posts->count() > 0 && (!$user->private_account || auth()->id() === $user->id || $user->followers()->where('users.id', auth()->id())->where('confirmed', true)->exists()))
+    @if ($user->posts->count() > 0 && (!$user->private_account || auth()->id() === $user->id || $user->follower()->where('users.id', auth()->id())->where('confirmed', true)->exists()))
         <div class="grid grid-cols-3 gap-4 my-5">
             @foreach ($user->posts as $post)
                 <a href="/posts/{{ $post->slug }}" class="aspect-square block w-full">
@@ -76,9 +76,9 @@
     @else
         <div class="w-full text-center mt-20">
             @if ($user->private_account && $user->id !== auth()->id())
-                {{ __('This account is private. Follow to see their posts.') }}
+                {{ __('This account is private follow to see thier photos') }}
             @else
-                {{ __('No posts to show.') }}
+                {{ __('No posts to show') }}
             @endif
         </div>
     @endif
